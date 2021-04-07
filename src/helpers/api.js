@@ -62,6 +62,11 @@ const api = {
             {email, password}
         );
         return json;
+    },
+
+    getStates:async () => {
+        const json = await apiFetchGET('/states');
+        return json.states;
     }
 }
 

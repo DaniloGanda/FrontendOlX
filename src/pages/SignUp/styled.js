@@ -26,7 +26,7 @@ export const PageArea = styled.div`
             .area--input{
                 flex:1;
 
-                input[type=email], input[type=password]{
+                input[type=email], input[type=password], input[type=text]{
                     width:100%;
                     font-size:14px;
                     padding:5px;
@@ -47,6 +47,21 @@ export const PageArea = styled.div`
                     border:1px solid #DDD;
                     border-radius:3px;
                     outline:0;
+                }
+
+                select{
+                    width:19%;
+                    font-size:14px;
+                    padding:5px;
+                    border:1px solid #CCC;
+                    border-radius:3px;
+                    outline:0;
+                    transition:all ease .4s;
+
+                    &:focus{
+                        border:1px solid #969494;
+                        color: #333;
+                    }
                 }
             }
 

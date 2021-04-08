@@ -1,69 +1,83 @@
 import styled from 'styled-components';
 
-export const PageArea = styled.div`
+export const SearchArea = styled.div`
+    background-color: #DDD;
+    border-bottom: 1px solid #CCC;
+    padding: 20px 0px;
 
-    form{
-        background: #FFF;
-        border-radius: 3px;
-        padding: 10px;
-        box-shadow: 0px 0px 3px #999;
+    .searchBox{
+        background-color: #9e29f5;
+        padding: 20px 15px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 0.3px rgb(0 0 0 / 35%);
+        display:flex;
 
-        .area{
+        form{
+            flex:1;
             display:flex;
-            align-items:center;
-            padding:10px;
-            max-width:500px;
 
-            .area--title{
-                width:200px;
-                text-align:right;
-                padding-right:20px;
-                font-weight:bold;
-                font-size:14px;
-
+            input,select{
+                height:40px;
+                border:0px;
+                border-radius:5px;
+                outline:0px;
+                font-size:15px;
+                color:#000;
+                margin-right:20px;
             }
 
-            .area--input{
+            input{
                 flex:1;
+                padding:0px 10px
+            }
 
-                input[type=email], input[type=password]{
-                    width:100%;
-                    font-size:14px;
-                    padding:5px;
-                    border:1px solid #CCC;
-                    border-radius:3px;
-                    outline:0;
-                    transition:all ease .4s;
-
-                    &:focus{
-                        border:1px solid #969494;
-                        color: #333;
-                    }
-                }
-
-                input[type=checkbox]{
-                    font-size:14px;
-                    padding:5px;
-                    border:1px solid #DDD;
-                    border-radius:3px;
-                    outline:0;
-                }
+            select{
+                width:100px;
             }
 
             button{
-                background: #9e29f5;
-                border:0;
-                outline:0;
-                padding:5px 10px;
-                border-radius: 4px;
-                color: #FFF;
+                background-color: #A577B8;
                 font-size: 15px;
+                border:0;
+                border-radius:5px;
+                color:#FFF;
+                height: 40px;
+                padding: 0 20px;
                 cursor:pointer;
 
                 &:hover{
-                    background: #8509e2;
+                    background-color: #B691B0;
                 }
             }
         }
     }
+
+    .categoryList{
+        display:flex;
+        flex-wrap:wrap;
+        margin-top:20px;
+
+        .categoryItem{
+            width:25%;
+            display:flex;
+            align-items:center;
+            color:#000;
+            text-decoration:none;
+            height:50px;
+            margin-bottom:10px;
+
+            &:hover{
+                color:#999;
+            }
+
+            img{
+                width:45px;
+                height:45px;
+                margin-right:10px;
+            }
+        }
+    }
+`;
+
+export const PageArea = styled.div`
 `;

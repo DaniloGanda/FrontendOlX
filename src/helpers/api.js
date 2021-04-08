@@ -76,6 +76,14 @@ const api = { // requisitando a api para enviar a o email e a senha
     getStates:async () => { // requisitando o api para puxar os estados
         const json = await apiFetchGET('/states');
         return json.states;
+    },
+
+    getCategories: async () => {
+        const json = await apiFetchGET(
+            '/categories'
+        );
+
+        return json.categories;
     }
 }
 

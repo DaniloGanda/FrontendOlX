@@ -55,7 +55,7 @@ const apiFetchGET = async (url, body = []) =>{
 }
 
 //
-const api = {
+const api = { // requisitando a api para enviar a o email e a senha
     login:async (email, password) =>{
         const json = await apiFetchPost(
             '/user/signin', 
@@ -64,7 +64,16 @@ const api = {
         return json;
     },
 
-    getStates:async () => {
+    register: async (name, email, password, stateloc) => {
+        const json = await apiFetchPost(
+            '/user/signup',
+            {name, email, password, state: stateloc}// como o nome do campo é o mesmo nome da varial nao precisa fazer assim: name:name, email:email
+        );
+
+        return json;
+    },
+
+    getStates:async () => { // requisitando o api para puxar os estados
         const json = await apiFetchGET('/states');
         return json.states;
     }

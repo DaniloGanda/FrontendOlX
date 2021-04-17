@@ -7,9 +7,9 @@ export const SearchArea = styled.div`
 
     .searchBox{
         background-color: #9e29f5;
+        box-shadow: 1px 1px 0.3px rgb(0 0 0 / 35%);
         padding: 20px 15px;
         border-radius: 5px;
-        box-shadow: 1px 1px 0.3px rgb(0 0 0 / 35%);
         display:flex;
 
         form{
@@ -36,7 +36,7 @@ export const SearchArea = styled.div`
             }
 
             button{
-                background-color: #A577B8;
+                background-color: #c96fef;
                 font-size: 15px;
                 border:0;
                 border-radius:5px;
@@ -46,7 +46,7 @@ export const SearchArea = styled.div`
                 cursor:pointer;
 
                 &:hover{
-                    background-color: #B691B0;
+                    background-color: #be42f3;
                 }
             }
         }
@@ -80,4 +80,27 @@ export const SearchArea = styled.div`
 `;
 
 export const PageArea = styled.div`
+    h2{
+        font-size: 20px;
+    }
+    .list{
+        display:flex;
+        flex-wrap: wrap;
+
+        .aditem{
+            width:25%;
+        }
+
+    }
+    .seeAllLink{
+        color:#000;
+        text-decoration: none;
+        font-weight:bold;
+        display: inline-block;
+        margin-top:10px;
+
+        &:hover{
+            color:#999;
+        }
+    }
 `;

@@ -84,6 +84,15 @@ const api = { // requisitando a api para enviar a o email e a senha
         );
 
         return json.categories;
+    },
+
+    getAds: async (options) =>{
+        const json = await apiFetchGET(
+            '/ad/list',
+            options
+        );
+
+        return json;
     }
 }
 

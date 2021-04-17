@@ -5,6 +5,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Cadastro from './pages/SignUp';
+import AdPage from './pages/AdPages'
 
 export default () => {
     return(
@@ -20,6 +21,9 @@ export default () => {
             </Route>
             <Route exact path="/Cadastrar">
                 <Cadastro/>
+            </Route>
+            <Route exact path="/ad/:id">
+                <AdPage/>
             </Route>
             <Route>
                 <NotFound />

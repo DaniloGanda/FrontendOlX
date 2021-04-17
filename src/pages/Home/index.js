@@ -5,12 +5,14 @@ import {Link} from 'react-router-dom';
 import {PageContainer} from '../../components/MainComponents';
 import { useState, useEffect } from 'react';
 import useApi from '../../helpers/api';
+import AdItem from '../../components/partials/AdItem'
 
 const Page = () => {
 
     const api = useApi();
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [adList, setAdList] = useState([]);
 
     useEffect(()=>{ // executa quando a pagina é carregada
         const getStates = async () =>{
@@ -27,6 +29,17 @@ const Page = () => {
             setCategories(cats);
         }
         getCategories();
+    }, []);
+
+    useEffect(()=>{ // executa quando a pagina é carregada
+        const getRecentAds = async () =>{
+            const json = await api.getAds({
+                sort: 'desc',
+                limit:8
+            });
+            setAdList(json.ads);
+        }
+        getRecentAds();
     }, []);
 
     return(
@@ -56,7 +69,15 @@ const Page = () => {
             </SearchArea>
             <PageContainer>
                 <PageArea>
-                    ...
+                    <h2>Anúncios Recentes</h2>
+                    <div className="list">
+                        {adList.map((i, k)=>
+                            <AdItem key={k} data={i} />
+                        )}
+                    </div>
+                    <Link to="/ads" className="seeAllLink">Ver todos</Link>
+                    <hr/>
+                    Texto descritivo...
                 </PageArea>
             </PageContainer>
         </>

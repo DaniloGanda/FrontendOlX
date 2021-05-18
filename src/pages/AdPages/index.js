@@ -1,129 +1,77 @@
 import React from 'react';
-import {PageArea} from './styled';
-
-import {PageContainer, PageTitle, ErrorMensage} from '../../components/MainComponents';
+import { PageArea, Fake } from './styled';
+import { useParams } from 'react-router-dom';
+import { PageContainer } from '../../components/MainComponents';
 import { useState, useEffect } from 'react';
 import useApi from '../../helpers/api';
-import {doLogin} from '../../helpers/AuthHandler';
 
 const Page = () => {
 
-    const api = useApi();
-    const [name, setName] = useState('');
-    const [stateLoc, setStateLoc] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [stateList, setStateList] = useState([]);
-    const [disabled, setDisabled] = useState(false);
-    const [error, setError] = useState('');
+    const formatDate = (date) =>{
+        let cDate = new Date(date);
 
-    useEffect(()=>{ // executa quando a pagina é carregada
-        const getStates = async () =>{
-            const slist = await api.getStates();
-            setStateList(slist);
-        }
-        getStates();
-    }, []);
+        let months = ['Janeiro','Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
+        let cDay = cDate.getDate();
+        let cMonths = cDate.getMonth();
+        let cYear = cDate.getFullYear();
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        setDisabled(true);
-        setError('');
-
-        if(password !== confirmPassword){
-            setError('Senhas não batem');
-            return;
-            setDisabled(false);
-        }
-
-        const json = await api.register(name, email, password, stateLoc);
-
-        if(json.error){
-            setError(json.error);
-        }else{
-            doLogin(json.token);
-            window.location.href = '/';
-        }
-
-        setDisabled(false);
+        return `${cDay} de ${months[cMonths]} de ${cYear}`;
     }
+
+    const api = useApi();
+    const { id } = useParams();
+    const [loading, setLoading] = useState(true);
+    const [adInfo, setAdInfo] = useState({});
+
+    useEffect(()=>{
+        const getAdInfo = async (id) => {
+            const json = await api.getAd(id, true);
+            setAdInfo(json);
+            setLoading(false);
+        }
+        getAdInfo(id);
+    },[]);
 
     return(
         <PageContainer>
-            <PageTitle>Cadastro</PageTitle>
             <PageArea>
-                {
-                    error &&
-                    <ErrorMensage>{error}</ErrorMensage>
-                }
-                <form onSubmit={handleSubmit}>
-                    <label className="area">
-                        <div className="area--title">Nome Completo</div>
-                        <div className="area--input">
-                            <input type="text" 
-                            disabled={disabled} 
-                            value={name}
-                            onChange={e=>setName(e.target.value)}
-                            required/>
+               <div className="leftSide">
+                    <div className="box">
+                        <div className="adImage">
+                            {loading && <Fake height={300}/>}
                         </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title">Estado</div>
-                        <div className="area--input">
-                           <select value={stateLoc} onChange={e=>setStateLoc(e.target.value)} required>
-                                <option></option>
-                                {stateList.map((i, k)=>
-                                    <option key={k} value={i._id}>{i.name}</option>
-                                )}
-                           </select>
+                        <div className="adInfor">
+                            <div className="adName">
+                               {loading && <Fake height={30}/>}
+                               {adInfo.title && 
+                                <h2>{adInfo.title}</h2>
+                               }
+                               {adInfo.dateCreated && 
+                                <small>Criado em {formatDate(adInfo.dateCreated)}</small>
+                               }
+                            </div>
+                            <div className="adDescription">
+                                {loading && <Fake height={100}/>}
+                                {adInfo.description}
+                                <hr/>
+                                {adInfo.views &&
+                                    <small>Visualizações: {adInfo.views}</small>
+                                }
+                            </div>
                         </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title">E-mail</div>
-                        <div className="area--input">
-                            <input type="email" 
-                            disabled={disabled} 
-                            value={email}
-                            onChange={e=>setEmail(e.target.value)}
-                            required/>
-                        </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title">Senha</div>
-                        <div className="area--input">
-                            <input type="password" 
-                            disabled={disabled}
-                            value={password}
-                            onChange={e=>setPassword(e.target.value)}
-                            required/>
-                        </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title">Confirmar Senha</div>
-                        <div className="area--input">
-                            <input type="password" 
-                            disabled={disabled}
-                            value={confirmPassword}
-                            onChange={e=>setConfirmPassword(e.target.value)}
-                            required/>
-                        </div>
-                    </label>
-
-                    <label className="area">
-                        <div className="area--title"></div>
-                        <div className="area--input">
-                            <button disabled={disabled}>{disabled ? 'Carregando...' : 'Cadastrar'}</button>
-                        </div>
-                    </label>
-                </form>
+                    </div>
+               </div>
+               <div className="rightSide">
+                <div className="box box--padding">
+                    {loading && <Fake height={20}/>}
+                </div>
+                <div className="box box--padding">
+                    {loading && <Fake height={50}/>}
+                </div>
+               </div>
             </PageArea>
-        </PageContainer>
+        </PageContainer> 
     );
 }
 

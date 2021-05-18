@@ -5,10 +5,10 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Cadastro from './pages/SignUp';
-import AdPage from './pages/AdPages'
+import AdPage from './pages/AdPages';
 
 export default () => {
-    return(
+    return( 
         <Switch>
             <Route exact path="/">
                 <Home/>
@@ -24,7 +24,7 @@ export default () => {
             </Route>
             <Route exact path="/ad/:id">
                 <AdPage/>
-            </Route>
+            </Route> 
             <Route>
                 <NotFound />
             </Route>

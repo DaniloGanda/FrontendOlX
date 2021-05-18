@@ -93,6 +93,15 @@ const api = { // requisitando a api para enviar a o email e a senha
         );
 
         return json;
+    },
+    
+    getAd: async (id, other = false) =>{
+        const json = await apiFetchGET(
+            '/ad/item',
+            {id, other}
+        );
+
+        return json;
     }
 }
 
